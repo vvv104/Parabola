@@ -3,6 +3,7 @@
 #include <atomic>
 #include <condition_variable>
 #include <mutex>
+#include <optional>
 
 /// @brief This class implements queue-like container of fixed length with multi-threading syncronization of reading and writing 
 ///        operations. It provides interface in producer-consumer paradigm supporting many producers and many consumers

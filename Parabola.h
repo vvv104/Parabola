@@ -7,38 +7,28 @@
 namespace Parabola
 {
     constexpr double epsilon = 0.000001;
-    class Solution;
+    struct Solution;
 
     /// @brief Definition of quadratic equation with ability to print itself into a stream
-    class Definition
+    struct Definition
     {
     public:
         Definition() = default;
         Definition(int a, int b, int c)
             : a_(a), b_(b), c_(c) {}
 
-    private:
         int a_ = 0;
         int b_ = 0;
         int c_ = 0;
-
-        friend std::ostream& operator<<(std::ostream& stream, const Definition& p);
-        friend Solution Solve(const Definition& p);
     };
 
     /// @brief Contains roots and extremum of parabola
-    class Solution
+    struct Solution
     {
-    public:
         Solution() = default;
-
-    private:
-        std::optional<double> r1_;
-        std::optional<double> r2_;
-        std::optional<double> e_;
-
-        friend std::ostream& operator<<(std::ostream& stream, const Solution& p);
-        friend Solution Solve(const Definition& p);
+        std::optional<double> r1;
+        std::optional<double> r2;
+        std::optional<double> e;
     };
 
     /// @brief Solves a quadratic equation finding its roots and extremum point
@@ -51,22 +41,22 @@ namespace Parabola
         if (p.a_ == 0)
         {
             if (p.b_ == 0)
-                s.e_ = p.c_;
+                s.e = p.c_;
             else
-                s.r1_ = (double)-p.c_ / p.b_;
+                s.r1 = (double)-p.c_ / p.b_;
         }
         else
         {
             double d = (double)p.b_ * p.b_ - 4.0 * p.a_ * p.c_;
             if (d > epsilon)
             {
-                s.r1_ = ((double)-p.b_ - std::sqrt(d)) / 2 / p.a_;
-                s.r2_ = ((double)-p.b_ + std::sqrt(d)) / 2 / p.a_;
+                s.r1 = ((double)-p.b_ - std::sqrt(d)) / 2 / p.a_;
+                s.r2 = ((double)-p.b_ + std::sqrt(d)) / 2 / p.a_;
             }
             else if (std::abs(d) <= epsilon)
-                s.r1_ = (double)-p.b_ / 2 / p.a_;
+                s.r1 = (double)-p.b_ / 2 / p.a_;
 
-            s.e_ = (double)-p.b_ / 2 / p.a_;
+            s.e = (double)-p.b_ / 2 / p.a_;
         }
 
         return s;
@@ -82,23 +72,23 @@ namespace Parabola
     {
         stream << std::fixed << std::setprecision(2);
 
-        if (!p.r1_.has_value())
+        if (!p.r1.has_value())
             stream << "no roots";
         else
         {
-            stream << '(' << p.r1_.value();
-            if (p.r2_.has_value())
-               stream << ' ' << p.r2_.value();
+            stream << '(' << p.r1.value();
+            if (p.r2.has_value())
+               stream << ' ' << p.r2.value();
             stream << ')';
         }
 
         stream << ' ';
 
-        if (!p.e_.has_value())
+        if (!p.e.has_value())
             stream << "no Xmin";
         else
         {
-            stream << "Xmin=" << p.e_.value();
+            stream << "Xmin=" << p.e.value();
         }
 
         return stream;
