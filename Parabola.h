@@ -2,6 +2,7 @@
 #include <iostream>
 #include <optional>
 #include <iomanip>
+#include <cmath>
 
 namespace Parabola
 {
