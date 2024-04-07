@@ -111,7 +111,8 @@ TEST(SharedRingBufferTest, MultipleProducersConsumers)
 }
 
 // Test with two producers (even and odd) and one consumer
-TEST(SharedRingBufferTest, TwoProducersOneConsumer) {
+TEST(SharedRingBufferTest, TwoProducersOneConsumer)
+{
     // Create input array with 100 random integers
     std::vector<int> inputArray(100);
     std::generate(inputArray.begin(), inputArray.end(), []() { return rand() % 100; });
@@ -119,9 +120,12 @@ TEST(SharedRingBufferTest, TwoProducersOneConsumer) {
     SharedRingBuffer<int, 200> buffer;
 
     // Producer for even elements
-    std::thread evenProducer([&]() {
-        for (const auto& num : inputArray) {
-            if (num % 2 == 0) {
+    std::thread evenProducer([&]()
+    {
+        for (const auto& num : inputArray)
+        {
+            if (num % 2 == 0)
+            {
                 buffer.produce(num);
                 std::this_thread::sleep_for(std::chrono::milliseconds(10));
             }
@@ -129,9 +133,12 @@ TEST(SharedRingBufferTest, TwoProducersOneConsumer) {
     });
 
     // Producer for odd elements
-    std::thread oddProducer([&]() {
-        for (const auto& num : inputArray) {
-            if (num % 2 != 0) {
+    std::thread oddProducer([&]()
+    {
+        for (const auto& num : inputArray)
+        {
+            if (num % 2 != 0)
+            {
                 buffer.produce(num);
                 std::this_thread::sleep_for(std::chrono::milliseconds(10));
             }
@@ -140,8 +147,10 @@ TEST(SharedRingBufferTest, TwoProducersOneConsumer) {
 
     // Consumer
     std::vector<int> resultArray;
-    std::thread consumer([&]() {
-        while (true) {
+    std::thread consumer([&]()
+    {
+        while (true)
+        {
             auto value = buffer.consume();
             if (!value.has_value())
                 break;
