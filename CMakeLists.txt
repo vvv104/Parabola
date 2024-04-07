@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.28.0)
+project(square_solver VERSION 0.1.0 LANGUAGES C CXX)
+add_executable(square_solver main.cpp)
+set_property(TARGET square_solver PROPERTY CXX_STANDARD 17)
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
