@@ -20,6 +20,7 @@ public:
         {
             auto pos = pos_.fetch_add(3, std::memory_order_relaxed);
 
+            // incomplete data
             if (pos + 3 > data_.size())
                 return std::nullopt;
 
@@ -31,6 +32,8 @@ public:
             {
                 // ignore format errors
             }
+            
+            return std::nullopt;
         }
     }
 
